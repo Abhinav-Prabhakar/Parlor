@@ -74,7 +74,7 @@
           if (!r) return;
           r.setAttribute('x', x); r.setAttribute('y', top); r.setAttribute('width', w); r.setAttribute('height', hh);
         });
-        b.s3.setAttribute('x', x); b.s3.setAttribute('y', top); b.s3.setAttribute('width', w); b.s3.setAttribute('height', Math.min(89, hh * 0.6));
+        b.s3.setAttribute('x', x); b.s3.setAttribute('y', top); b.s3.setAttribute('width', w); b.s3.setAttribute('height', Math.max(0, Math.min(hh, g.askTop + 4 - top)));
         if (b.wedge) {
           var top2 = Math.min(H, Y(v[i + 1], sc));
           b.wedge.setAttribute('d', 'M' + (x + w) + ' ' + top + ' L' + (x + g.colW) + ' ' + top2 + ' L' + (x + g.colW) + ' ' + H + ' L' + (x + w) + ' ' + H + ' Z');
@@ -244,6 +244,7 @@
         fill.style.width = w + '%';
         var tip = r.querySelector('.gv-tip');
         tip.style.left = 'calc(' + w + '% + 2px)';
+        tip.classList.toggle('flip', w > 46);
         tip.innerHTML = (P.state.gross.mode === 'share' ? '<b>' + u.money(v) + '</b>' : '<b>' + Math.round(share * 100) + '%</b> of volume') +
           ' <span class="' + (dd >= 0 ? 'up-t' : 'down-t') + '">' + (dd >= 0 ? '▲' : '▼') + ' ' + Math.abs(Math.round(dd * 100)) + '%</span>';
       });
@@ -383,7 +384,7 @@
     var groups = [], peak = 0, hover = null, grpEls = [], restWord = kind === 'cust' ? 'Highest' : 'Peak';
 
     function levels(gs) {
-      var all = []; gs.forEach(function (g) { all.push(g.parts[0], g.parts[1]); });
+      var all = []; gs.forEach(function (g) { all.push(g.norm[0], g.norm[1]); });
       var mn = Math.min.apply(null, all), mx = Math.max.apply(null, all);
       return function (v) { return mx === mn ? 2 : 1 + Math.round(3 * (v - mn) / (mx - mn)); };
     }
@@ -392,7 +393,7 @@
       var lv = levels(groups);
       groups.forEach(function (g, gi) {
         var ge = u.h('div', { class: 'dgrp' });
-        g.parts.forEach(function (v, ci) {
+        g.norm.forEach(function (v, ci) {
           var col = u.h('div', { class: 'dcol' }), n = lv(v);
           for (var k = 0; k < n; k++) {
             var d = u.h('span', animate ? { class: 'dpop', style: 'animation-delay:' + ((gi * 2 + ci) * 22 + k * 30) + 'ms' } : null);
@@ -412,22 +413,35 @@
       var cr = card.getBoundingClientRect(), gr = grpEls[i].getBoundingClientRect(), wr = wrap.getBoundingClientRect();
       var pw = pill.offsetWidth, cx = gr.left - cr.left + gr.width / 2;
       var x = Math.max(12, Math.min(cr.width - pw - 12, cx - pw / 2));
-      var y = wr.bottom - cr.top - 58 - 20 - 33;
+      var ds = parseFloat(getComputedStyle(wrap).getPropertyValue('--ds')) || 13;
+      var y = wr.bottom - cr.top - (4 * ds + 6) - (cr.width <= 520 ? 9 : 20) - 33;
       pill.style.transition = anim ? '' : 'none';
       pill.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
       if (!anim) { void pill.offsetWidth; pill.style.transition = ''; }
     }
+    // Fit the dot size to the space left between the number and the "vs" block
+    function fit() {
+      var n = groups.length || 7, row = wrap.parentNode, compact = card.clientWidth <= 520;
+      var avail = compact ? row.clientWidth : row.clientWidth - num.offsetWidth - $('.vs', card).offsetWidth - 40;
+      var ds = Math.max(7, Math.min(13, (avail - 8) / (n * 2.96)));
+      wrap.style.setProperty('--ds', ds.toFixed(2) + 'px');
+    }
     function update(m, animate) {
       var ch = P.state[kind === 'cust' ? 'cust' : 'tx'].channel;
       groups = P.data.distribution(m.range, P.state.gran, kind, ch);
-      peak = 0; groups.forEach(function (g, i) { if (g.total > groups[peak].total) peak = i; });
-      var total = m.curT[kind](ch), prev = m.cmpT[kind](ch);
-      u.countTo(num, total, kind === 'cust' ? u.int : u.compactFixed, animate ? 850 : 1);
+      var score = function (g) { return g.avg != null ? g.avg : g.total; };
+      peak = 0; groups.forEach(function (g, i) { if (score(g) > score(groups[peak])) peak = i; });
+      var total = m.curT[kind](ch), prev = m.cmpT[kind](ch), nf = kind === 'cust' ? u.int : u.compactFixed;
+      // reserve the final width so the dots don't shift while the counter runs
+      var shown = num.textContent; num.style.minWidth = ''; num.textContent = nf(total);
+      num.style.minWidth = num.offsetWidth + 'px'; num.textContent = shown;
+      u.countTo(num, total, nf, animate ? 850 : 1);
       var d = total - prev;
       vs.classList.toggle('neg', d < 0);
       vs._v = vs._v == null ? 0 : vs._v;
       u.countTo(vs, d, function (v) { return u.signed(v); }, animate ? 850 : 1);
       build(animate);
+      fit();
       hover = null;
       requestAnimationFrame(function () { highlight(false); });
     }
@@ -443,7 +457,7 @@
     });
     card.addEventListener('pointerleave', function () { if (hover != null) { hover = null; highlight(true); } });
     return {
-      update: update, relayout: function () { highlight(false); },
+      update: update, relayout: function () { num.style.minWidth = ''; var t = num.textContent; num.textContent = (kind === 'cust' ? u.int : u.compactFixed)(num._v || 0); num.style.minWidth = num.offsetWidth + 'px'; num.textContent = t; fit(); highlight(false); },
       rows: function () { return groups.map(function (g) { return [g.long, g.parts[0], g.parts[1], g.total]; }); }
     };
   }

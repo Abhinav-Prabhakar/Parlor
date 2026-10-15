@@ -194,7 +194,8 @@
         var dd = d.filter(function (x) { return x.dow === dw; });
         var all = sum(dd, function (x) { return chSum(x[key], ch); });
         var am = sum(dd, function (x) { return chSum(x[amKey], ch); });
-        groups.push({ label: DOWS[dw], long: DOWS[dw] + 'days', parts: [am, all - am], total: all, partNames: ['AM', 'PM'] });
+        var nd = dd.length || 1;
+        groups.push({ label: DOWS[dw], long: DOWS[dw] + 'days', parts: [am, all - am], norm: [am / nd, (all - am) / nd], total: all, partNames: ['AM', 'PM'] });
       });
     } else {
       var bs = buckets(r, gran).slice(-7);
@@ -204,7 +205,8 @@
         var all = sum(dd, function (x) { return chSum(x[key], ch); });
         var dt = dateOf(b.from);
         var label = gran === 'monthly' ? MONTHS[dt.getUTCMonth()] : MONTHS[dt.getUTCMonth()] + ' ' + dt.getUTCDate();
-        groups.push({ label: label, long: gran === 'monthly' ? label : 'Week of ' + label, parts: [first, all - first], total: all, partNames: ['1st half', '2nd half'] });
+        var n1 = mid - b.from + 1, n2 = Math.max(1, b.to - mid);
+        groups.push({ label: label, long: gran === 'monthly' ? label : 'Week of ' + label, parts: [first, all - first], norm: [first / n1, (all - first) / n2], total: all, avg: all / (b.to - b.from + 1), partNames: ['1st half', '2nd half'] });
       });
     }
     return groups;
