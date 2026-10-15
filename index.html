@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zentra Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<main class="page">
+
+  <!-- ===== Top bar ===== -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">
+        <svg viewBox="0 0 36 36" width="36" height="36">
+          <defs>
+            <linearGradient id="lg-logo" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ffc23a"/><stop offset=".55" stop-color="#fb9a14"/><stop offset="1" stop-color="#ef7a0b"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="36" height="36" rx="8" fill="url(#lg-logo)"/>
+          <rect x="6.5" y="6.5" width="23" height="23" rx="2" fill="#fff4dc"/>
+          <path d="M9 27 L27 9 L27 27 Z" fill="#f59a14"/>
+          <path d="M9 9 H24 L9 24 Z" fill="#fff4dc"/>
+          <path d="M11 25.5 L25.5 11" stroke="#f08a0e" stroke-width="2.4"/>
+        </svg>
+      </span>
+      <span class="brand-name">zentra</span>
+    </div>
+    <nav class="nav">
+      <a class="active">Home</a>
+      <a>Payments</a>
+      <a>Balances</a>
+      <a>Customers</a>
+      <a>Products</a>
+      <a>Billing</a>
+      <a>Reports</a>
+      <a>Connect</a>
+    </nav>
+    <div class="top-actions">
+      <button class="circle-btn" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#111" stroke-width="1.9" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="7"/><path d="M16 16l5 5"/></svg>
+      </button>
+      <button class="circle-btn" aria-label="Notifications">
+        <svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.2 4.6A6 6 0 0 0 6 10.2v4.6L4.4 17.6h15.2L18 14.8v-3.6"/><path d="M9.8 20.4h4.4"/></svg>
+        <span class="notif-dot"></span>
+      </button>
+      <span class="avatar"><img src="assets/avatar.png" alt=""></span>
+    </div>
+  </header>
+
+  <!-- ===== Title row ===== -->
+  <section class="title-row">
+    <h1>Overview</h1>
+    <button class="link-btn" aria-label="Copy link">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"><path d="M10 14a4.2 4.2 0 0 0 6 0l3-3a4.2 4.2 0 0 0-6-6l-1 1"/><path d="M14 10a4.2 4.2 0 0 0-6 0l-3 3a4.2 4.2 0 0 0 6 6l1-1"/></svg>
+    </button>
+
+    <div class="controls">
+      <div class="range-group">
+        <button class="range">
+          <svg class="cal" viewBox="0 0 20 20" width="21" height="21" fill="none" stroke="#1a1a1a" stroke-width="1.6"><rect x="2.5" y="3.5" width="15" height="14" rx="3"/><path d="M2.5 8h15M6.5 2v3M13.5 2v3" stroke-linecap="round"/><path d="M6 11.5h3M6 14h6" stroke-linecap="round"/></svg>
+          Jan 01 – July 31
+          <svg class="chev" viewBox="0 0 12 12" width="13" height="13" fill="none" stroke="#1a1a1a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>
+        </button>
+        <span class="compared">compared to</span>
+        <button class="range">
+          <svg class="cal" viewBox="0 0 20 20" width="21" height="21" fill="none" stroke="#1a1a1a" stroke-width="1.6"><rect x="2.5" y="3.5" width="15" height="14" rx="3"/><path d="M2.5 8h15M6.5 2v3M13.5 2v3" stroke-linecap="round"/><path d="M6 11.5h3M6 14h6" stroke-linecap="round"/></svg>
+          Aug 01 – Dec 31
+          <svg class="chev" viewBox="0 0 12 12" width="13" height="13" fill="none" stroke="#1a1a1a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>
+        </button>
+      </div>
+      <button class="pill-btn daily">Daily
+        <svg class="chev" viewBox="0 0 12 12" width="13" height="13" fill="none" stroke="#1a1a1a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>
+      </button>
+      <button class="pill-btn add">Add widget
+        <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="#222" stroke-width="1.6" stroke-linecap="round"><path d="M8 1.5v13M1.5 8h13"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===== Payments ===== -->
+  <section class="card payments">
+    <h2 class="card-title">Payments</h2>
+    <button class="more" aria-label="More"><i></i><i></i><i></i></button>
+
+    <div class="y-axis">
+      <span style="top:387px">70k</span>
+      <span style="top:446px">60k</span>
+      <span style="top:505px">50k</span>
+      <span style="top:564px">40k</span>
+      <span style="top:623px">30k</span>
+    </div>
+
+    <div class="funnel">
+      <div class="col-bg sel"></div>
+      <div class="col c1"><span class="lbl">Initiated Payments</span><span class="val">65.2k</span></div>
+      <div class="col c2"><span class="lbl">Authorized Payments</span><span class="val">54.8k</span></div>
+      <div class="col c3 active"><span class="lbl">Successful Payments</span><span class="val">48.6k</span></div>
+      <div class="col c4"><span class="lbl">Payouts to Merchants</span><span class="val">38.3k</span></div>
+      <div class="col c5"><span class="lbl">Completed Transactions</span><span class="val">32.9k</span></div>
+
+      <svg class="bars" viewBox="0 0 1186 542" width="1186" height="542">
+        <defs>
+          <pattern id="hatch" width="10.2" height="10.2" patternUnits="userSpaceOnUse" patternTransform="translate(126 418) rotate(45)">
+            <rect x="0" y="0" width="2.3" height="10.2" fill="#ffffff"/>
+          </pattern>
+          <pattern id="hatch2" width="13.6" height="13.6" patternUnits="userSpaceOnUse" patternTransform="translate(764 592) rotate(45)">
+            <rect x="0" y="0" width="2.6" height="13.6" fill="#ffffff"/>
+          </pattern>
+          <radialGradient id="selGlow" cx="0.25" cy="1" r="0.8">
+            <stop offset="0" stop-color="#5fa8ff" stop-opacity=".8"/>
+            <stop offset="1" stop-color="#5fa8ff" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="barV" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#1d55ea"/>
+            <stop offset="0.3" stop-color="#2879fa"/>
+            <stop offset="0.62" stop-color="#7eaef5"/>
+            <stop offset="0.85" stop-color="#c9dbf7"/>
+            <stop offset="1" stop-color="#eef3fb"/>
+          </linearGradient>
+          <linearGradient id="barH" x1="0" y1="0" x2="1" y2="0.6">
+            <stop offset="0" stop-color="#1b2fc4" stop-opacity=".55"/>
+            <stop offset="0.5" stop-color="#1b2fc4" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="barSel" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#1d6cfa"/>
+            <stop offset="0.55" stop-color="#2160ef"/>
+            <stop offset="1" stop-color="#2a2fd2"/>
+          </linearGradient>
+          <linearGradient id="barSelV" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2a2ad0" stop-opacity="0"/>
+            <stop offset="0.6" stop-color="#4a8cff" stop-opacity="0.05"/>
+            <stop offset="1" stop-color="#6fb2ff" stop-opacity="0.55"/>
+          </linearGradient>
+          <linearGradient id="wedge" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#9db7f4"/>
+            <stop offset="0.5" stop-color="#cbdaf7"/>
+            <stop offset="1" stop-color="#eef3fb"/>
+          </linearGradient>
+          <linearGradient id="fadeB" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+            <stop offset="1" stop-color="#fff" stop-opacity=".55"/>
+          </linearGradient>
+          <linearGradient id="marker" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#cfe4ff"/>
+            <stop offset="0.5" stop-color="#7fb2f8"/>
+            <stop offset="1" stop-color="#3f86ef"/>
+          </linearGradient>
+        </defs>
+        <!-- coords are relative to the card (x - 0, y - 0); card left = 33, top = 229 -->
+        <g transform="translate(-33,-229)">
+          <!-- wedges -->
+          <path d="M312 418 L339 498 L339 720 L312 720 Z" fill="url(#wedge)"/>
+          <path d="M525 498 L551 553 L551 720 L525 720 Z" fill="url(#wedge)"/>
+          <path d="M737 553 L764 592 L764 720 L737 720 Z" fill="url(#wedge)"/>
+          <path d="M950 592 L976 620 L976 720 L950 720 Z" fill="url(#wedge)"/>
+          <!-- hatched bars -->
+          <g>
+            <rect x="126" y="418" width="186" height="282" fill="url(#barV)"/>
+            <rect x="126" y="418" width="186" height="282" fill="url(#barH)"/>
+            <rect x="126" y="418" width="186" height="282" fill="url(#hatch)" opacity=".95"/>
+            <rect x="339" y="498" width="186" height="202" fill="url(#barV)"/>
+            <rect x="339" y="498" width="186" height="202" fill="url(#barH)"/>
+            <rect x="339" y="498" width="186" height="202" fill="url(#hatch)" opacity=".95"/>
+            <rect x="764" y="592" width="186" height="108" fill="url(#barV)"/>
+            <rect x="764" y="592" width="186" height="108" fill="url(#hatch2)" opacity=".95"/>
+            <rect x="976" y="620" width="213" height="80" fill="url(#barV)"/>
+            <rect x="976" y="620" width="213" height="80" fill="url(#hatch2)" opacity=".95"/>
+          </g>
+          <!-- selected solid bar -->
+          <rect x="551" y="553" width="186" height="147" fill="url(#barSel)"/>
+          <rect x="551" y="553" width="186" height="147" fill="url(#barSelV)"/>
+          <rect x="551" y="553" width="186" height="89" fill="url(#selGlow)"/>
+          <!-- markers -->
+          <rect x="203" y="403" width="32" height="8" rx="4" fill="url(#marker)"/>
+          <rect x="416" y="482" width="32" height="8" rx="4" fill="url(#marker)"/>
+          <rect x="840" y="576" width="32" height="8" rx="4" fill="url(#marker)"/>
+          <rect x="1060" y="604" width="32" height="8" rx="4" fill="url(#marker)"/>
+        </g>
+      </svg>
+
+      <div class="tooltip"><b>48.6k</b> transactions <em>|</em> Conversion: <b>89%</b> <em>|</em> Drop-off: <b>-11%</b></div>
+      <svg class="cursor" viewBox="0 0 30 30" width="35" height="35">
+        <path d="M3 2 L27 13 L16 16.5 L11.5 27 Z" fill="#000" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <div class="ask">
+      <div class="ask-head">
+        <svg viewBox="0 0 26 26" width="26" height="26" fill="#5b6472"><path d="M10 4.5c.75 4.6 2.4 6.25 7 7-4.6.75-6.25 2.4-7 7-.75-4.6-2.4-6.25-7-7 4.6-.75 6.25-2.4 7-7Z"/><path d="M19.5 1.5c.4 2.2 1.1 2.9 3.3 3.3-2.2.4-2.9 1.1-3.3 3.3-.4-2.2-1.1-2.9-3.3-3.3 2.2-.4 2.9-1.1 3.3-3.3Z"/><path d="M19.5 16.5c.4 2.2 1.1 2.9 3.3 3.3-2.2.4-2.9 1.1-3.3 3.3-.4-2.2-1.1-2.9-3.3-3.3 2.2-.4 2.9-1.1 3.3-3.3Z"/></svg>
+        <span>What would you like to explore next?</span>
+        <svg class="up" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="#333" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 8 5.5l5 5"/></svg>
+      </div>
+      <div class="ask-input">I want to know what caused the drop-off from authorized to <span class="chip">/successful payments</span><span class="caret"></span></div>
+    </div>
+  </section>
+
+  <!-- ===== Gross volume ===== -->
+  <section class="card gross">
+    <h2 class="card-title">Gross Volume</h2>
+    <button class="more" aria-label="More"><i></i><i></i><i></i></button>
+    <div class="gv-amount">$41,540</div>
+    <span class="delta"><svg viewBox="0 0 10 8" width="11" height="9"><path d="M5 0 10 8H0Z" fill="#1a9e2c"/></svg>15%</span>
+    <hr class="gv-rule">
+    <div class="gv-row" style="top:262px">
+      <div class="gv-head"><span>Online Payments</span><b>$26,800</b></div>
+      <div class="track"><div class="fill green" style="width:364px"></div></div>
+    </div>
+    <div class="gv-row" style="top:355px">
+      <div class="gv-head"><span>Subscriptions</span><b>$10,400</b></div>
+      <div class="track"><div class="fill blue" style="width:260px"></div></div>
+    </div>
+    <div class="gv-row" style="top:449px">
+      <div class="gv-head"><span>In-Store Sales</span><b>$4,340</b></div>
+      <div class="track"><div class="fill pink" style="width:183px"></div></div>
+    </div>
+  </section>
+
+  <!-- ===== Retention ===== -->
+  <section class="card retention">
+    <h2 class="card-title">Retention</h2>
+    <button class="more" aria-label="More"><i></i><i></i><i></i></button>
+    <span class="float-pill" style="left:185px;top:95px">42%</span>
+    <svg class="ret-chart" viewBox="0 0 430 493" width="430" height="493">
+      <defs>
+        <pattern id="vstripes" width="5.4" height="10" patternUnits="userSpaceOnUse">
+          <rect width="5.4" height="10" fill="#fdf3f7"/>
+          <rect x="0" width="2.4" height="10" fill="#f6d3e1"/>
+        </pattern>
+        <linearGradient id="retFade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#f8f8f8" stop-opacity="0"/>
+          <stop offset="0.55" stop-color="#f8f8f8" stop-opacity=".35"/>
+          <stop offset="1" stop-color="#f8f8f8" stop-opacity=".9"/>
+        </linearGradient>
+        <filter id="dotGlow" x="-2" y="-2" width="5" height="5"><feGaussianBlur stdDeviation="2"/></filter>
+      </defs>
+      <g transform="translate(-33,-788)">
+        <path id="retArea" d="M64 1038.5 H90 V1050 H115.5 V1024.5 H143 V973.5 H196 V991.5 H222 V980.5 H248 V941.5 H274.5 V932.5 H301 V967.5 H327.5 V947.5 H353 V1036.5 H380.5 V1008.5 H406 V1023 H432 V1218 H64 Z" fill="url(#vstripes)"/>
+        <rect x="60" y="920" width="380" height="300" fill="url(#retFade)"/>
+        <path d="M64 1038.5 H90 V1050 H115.5 V1024.5 H143 V973.5 H196 V991.5 H222 V980.5 H248 V941.5 H274.5 V932.5 H301 V967.5 H327.5 V947.5 H353 V1036.5 H380.5 V1008.5 H406 V1023 H432" fill="none" stroke="#ee2f7e" stroke-width="3.4" stroke-linejoin="miter"/>
+        <line x1="64" y1="1218.5" x2="432" y2="1218.5" stroke="#d9d9d9" stroke-width="1"/>
+        <circle cx="248" cy="938" r="8" fill="#fff" opacity=".95"/>
+        <circle cx="248" cy="938" r="4" fill="#ee2f7e"/>
+      </g>
+    </svg>
+    <div class="months"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span></div>
+  </section>
+
+  <!-- ===== Transactions ===== -->
+  <section class="card tx">
+    <h2 class="card-title">Transactions</h2>
+    <button class="more" aria-label="More"><i></i><i></i><i></i></button>
+    <div class="big-num">106k</div>
+    <span class="float-pill" style="left:306px;top:95px">Peak: <b>Wed</b></span>
+    <div class="dots green" data-cols="1,2,1,2,3D,4D,3,1,2,1,1,1,1,1"></div>
+    <div class="vs"><span>vs last period</span><b>+34,002</b></div>
+  </section>
+
+  <!-- ===== Customers ===== -->
+  <section class="card customers">
+    <h2 class="card-title">Customers</h2>
+    <button class="more" aria-label="More"><i></i><i></i><i></i></button>
+    <div class="big-num">1,284</div>
+    <span class="float-pill" style="left:334px;top:91px">Highest: <b>Thu</b></span>
+    <div class="dots blue" data-cols="1,1,1,2,2,3,4D,3D,1,2,1,3,1,1"></div>
+    <div class="vs"><span>vs last period</span><b>+320</b></div>
+  </section>
+
+  <!-- ===== Insights ===== -->
+  <section class="card insights">
+    <svg class="ins-art" viewBox="0 0 580 495" width="580" height="495" aria-hidden="true">
+      <defs>
+        <filter id="mesh" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="26" edgeMode="duplicate"/></filter>
+        <filter id="b1" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.2"/></filter>
+        <filter id="b05" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="0.6"/></filter>
+        <filter id="b4" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
+        <filter id="b10" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="12"/></filter>
+        <linearGradient id="bandG" x1="0" y1="0" x2="0.35" y2="1">
+          <stop offset="0" stop-color="#fffaf3" stop-opacity=".92"/>
+          <stop offset=".45" stop-color="#fdf0e2" stop-opacity=".68"/>
+          <stop offset=".7" stop-color="#fbeedd" stop-opacity=".3"/>
+          <stop offset="1" stop-color="#faf0d6" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="faceG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#df7748" stop-opacity=".45"/>
+          <stop offset=".5" stop-color="#c88e6c" stop-opacity=".3"/>
+          <stop offset="1" stop-color="#e7bb8a" stop-opacity=".05"/>
+        </linearGradient>
+        <linearGradient id="tileG" x1="0" y1="0" x2="1" y2=".4">
+          <stop offset="0" stop-color="#fbd2bf"/>
+          <stop offset="1" stop-color="#f7c1a2"/>
+        </linearGradient>
+        <clipPath id="insClip"><rect width="580" height="495" rx="28"/></clipPath>
+      </defs>
+      <g clip-path="url(#insClip)">
+        <g filter="url(#mesh)"><rect x="-58" y="-55" width="59" height="56" fill="#e7d6cb"/>
+          <rect x="0" y="-55" width="59" height="56" fill="#e7d6cb"/>
+          <rect x="58" y="-55" width="59" height="56" fill="#e2c3b4"/>
+          <rect x="116" y="-55" width="59" height="56" fill="#dba68c"/>
+          <rect x="174" y="-55" width="59" height="56" fill="#da9373"/>
+          <rect x="232" y="-55" width="59" height="56" fill="#df8b66"/>
+          <rect x="290" y="-55" width="59" height="56" fill="#e5875e"/>
+          <rect x="348" y="-55" width="59" height="56" fill="#ea875e"/>
+          <rect x="406" y="-55" width="59" height="56" fill="#f2b294"/>
+          <rect x="464" y="-55" width="59" height="56" fill="#f7c6ac"/>
+          <rect x="522" y="-55" width="59" height="56" fill="#f8c9aa"/>
+          <rect x="580" y="-55" width="59" height="56" fill="#f8c9aa"/>
+          <rect x="-58" y="0" width="59" height="56" fill="#e7d6cb"/>
+          <rect x="0" y="0" width="59" height="56" fill="#e7d6cb"/>
+          <rect x="58" y="0" width="59" height="56" fill="#e2c3b4"/>
+          <rect x="116" y="0" width="59" height="56" fill="#dba68c"/>
+          <rect x="174" y="0" width="59" height="56" fill="#da9373"/>
+          <rect x="232" y="0" width="59" height="56" fill="#df8b66"/>
+          <rect x="290" y="0" width="59" height="56" fill="#e5875e"/>
+          <rect x="348" y="0" width="59" height="56" fill="#ea875e"/>
+          <rect x="406" y="0" width="59" height="56" fill="#f2b294"/>
+          <rect x="464" y="0" width="59" height="56" fill="#f7c6ac"/>
+          <rect x="522" y="0" width="59" height="56" fill="#f8c9aa"/>
+          <rect x="580" y="0" width="59" height="56" fill="#f8c9aa"/>
+          <rect x="-58" y="55" width="59" height="56" fill="#c7cac9"/>
+          <rect x="0" y="55" width="59" height="56" fill="#c7cac9"/>
+          <rect x="58" y="55" width="59" height="56" fill="#cfc7c2"/>
+          <rect x="116" y="55" width="59" height="56" fill="#cbb4ad"/>
+          <rect x="174" y="55" width="59" height="56" fill="#c8a191"/>
+          <rect x="232" y="55" width="59" height="56" fill="#ce9a81"/>
+          <rect x="290" y="55" width="59" height="56" fill="#da997d"/>
+          <rect x="348" y="55" width="59" height="56" fill="#e09670"/>
+          <rect x="406" y="55" width="59" height="56" fill="#e99f76"/>
+          <rect x="464" y="55" width="59" height="56" fill="#ec9c67"/>
+          <rect x="522" y="55" width="59" height="56" fill="#f4af77"/>
+          <rect x="580" y="55" width="59" height="56" fill="#f4af77"/>
+          <rect x="-58" y="110" width="59" height="56" fill="#a7bec9"/>
+          <rect x="0" y="110" width="59" height="56" fill="#a7bec9"/>
+          <rect x="58" y="110" width="59" height="56" fill="#aabac1"/>
+          <rect x="116" y="110" width="59" height="56" fill="#b1b5b8"/>
+          <rect x="174" y="110" width="59" height="56" fill="#b3aba9"/>
+          <rect x="232" y="110" width="59" height="56" fill="#b9a49b"/>
+          <rect x="290" y="110" width="59" height="56" fill="#eed0c1"/>
+          <rect x="348" y="110" width="59" height="56" fill="#d3a387"/>
+          <rect x="406" y="110" width="59" height="56" fill="#dfa882"/>
+          <rect x="464" y="110" width="59" height="56" fill="#edc19b"/>
+          <rect x="522" y="110" width="59" height="56" fill="#f3cb9f"/>
+          <rect x="580" y="110" width="59" height="56" fill="#f3cb9f"/>
+          <rect x="-58" y="165" width="59" height="56" fill="#78a8c6"/>
+          <rect x="0" y="165" width="59" height="56" fill="#78a8c6"/>
+          <rect x="58" y="165" width="59" height="56" fill="#729ebd"/>
+          <rect x="116" y="165" width="59" height="56" fill="#82a2bb"/>
+          <rect x="174" y="165" width="59" height="56" fill="#93a3b4"/>
+          <rect x="232" y="165" width="59" height="56" fill="#a2abae"/>
+          <rect x="290" y="165" width="59" height="56" fill="#b5b1ae"/>
+          <rect x="348" y="165" width="59" height="56" fill="#d7c4b4"/>
+          <rect x="406" y="165" width="59" height="56" fill="#e0c5a9"/>
+          <rect x="464" y="165" width="59" height="56" fill="#e4bc88"/>
+          <rect x="522" y="165" width="59" height="56" fill="#f0cd97"/>
+          <rect x="580" y="165" width="59" height="56" fill="#f0cd97"/>
+          <rect x="-58" y="220" width="59" height="56" fill="#4384bb"/>
+          <rect x="0" y="220" width="59" height="56" fill="#4384bb"/>
+          <rect x="58" y="220" width="59" height="56" fill="#4c8bbe"/>
+          <rect x="116" y="220" width="59" height="56" fill="#5892be"/>
+          <rect x="174" y="220" width="59" height="56" fill="#689bbd"/>
+          <rect x="232" y="220" width="59" height="56" fill="#83a9bd"/>
+          <rect x="290" y="220" width="59" height="56" fill="#9cb2b9"/>
+          <rect x="348" y="220" width="59" height="56" fill="#b4b9b2"/>
+          <rect x="406" y="220" width="59" height="56" fill="#cec4a8"/>
+          <rect x="464" y="220" width="59" height="56" fill="#ebd7a9"/>
+          <rect x="522" y="220" width="59" height="56" fill="#f7e3aa"/>
+          <rect x="580" y="220" width="59" height="56" fill="#f7e3aa"/>
+          <rect x="-58" y="275" width="59" height="56" fill="#255ba6"/>
+          <rect x="0" y="275" width="59" height="56" fill="#255ba6"/>
+          <rect x="58" y="275" width="59" height="56" fill="#346fb3"/>
+          <rect x="116" y="275" width="59" height="56" fill="#417fba"/>
+          <rect x="174" y="275" width="59" height="56" fill="#5191c1"/>
+          <rect x="232" y="275" width="59" height="56" fill="#67a3c5"/>
+          <rect x="290" y="275" width="59" height="56" fill="#87b3c6"/>
+          <rect x="348" y="275" width="59" height="56" fill="#a7bfbf"/>
+          <rect x="406" y="275" width="59" height="56" fill="#c2c9b5"/>
+          <rect x="464" y="275" width="59" height="56" fill="#d9d1aa"/>
+          <rect x="522" y="275" width="59" height="56" fill="#e9dba4"/>
+          <rect x="580" y="275" width="59" height="56" fill="#e9dba4"/>
+          <rect x="-58" y="330" width="59" height="56" fill="#143886"/>
+          <rect x="0" y="330" width="59" height="56" fill="#143886"/>
+          <rect x="58" y="330" width="59" height="56" fill="#1a4a9c"/>
+          <rect x="116" y="330" width="59" height="56" fill="#2561af"/>
+          <rect x="174" y="330" width="59" height="56" fill="#377cbe"/>
+          <rect x="232" y="330" width="59" height="56" fill="#5095c7"/>
+          <rect x="290" y="330" width="59" height="56" fill="#71afcd"/>
+          <rect x="348" y="330" width="59" height="56" fill="#98c0cb"/>
+          <rect x="406" y="330" width="59" height="56" fill="#bad0c2"/>
+          <rect x="464" y="330" width="59" height="56" fill="#d4d9b9"/>
+          <rect x="522" y="330" width="59" height="56" fill="#e6e1b3"/>
+          <rect x="580" y="330" width="59" height="56" fill="#e6e1b3"/>
+          <rect x="-58" y="385" width="59" height="56" fill="#13255b"/>
+          <rect x="0" y="385" width="59" height="56" fill="#13255b"/>
+          <rect x="58" y="385" width="59" height="56" fill="#163277"/>
+          <rect x="116" y="385" width="59" height="56" fill="#184393"/>
+          <rect x="174" y="385" width="59" height="56" fill="#2361ae"/>
+          <rect x="232" y="385" width="59" height="56" fill="#3b82c1"/>
+          <rect x="290" y="385" width="59" height="56" fill="#5ca3cd"/>
+          <rect x="348" y="385" width="59" height="56" fill="#8bbfd0"/>
+          <rect x="406" y="385" width="59" height="56" fill="#b2d1cc"/>
+          <rect x="464" y="385" width="59" height="56" fill="#d2dfc8"/>
+          <rect x="522" y="385" width="59" height="56" fill="#e4e6c4"/>
+          <rect x="580" y="385" width="59" height="56" fill="#e4e6c4"/>
+          <rect x="-58" y="440" width="59" height="56" fill="#111940"/>
+          <rect x="0" y="440" width="59" height="56" fill="#111940"/>
+          <rect x="58" y="440" width="59" height="56" fill="#142253"/>
+          <rect x="116" y="440" width="59" height="56" fill="#173271"/>
+          <rect x="174" y="440" width="59" height="56" fill="#1c4a97"/>
+          <rect x="232" y="440" width="59" height="56" fill="#2f71b6"/>
+          <rect x="290" y="440" width="59" height="56" fill="#539aca"/>
+          <rect x="348" y="440" width="59" height="56" fill="#82bcd2"/>
+          <rect x="406" y="440" width="59" height="56" fill="#b1d4d4"/>
+          <rect x="464" y="440" width="59" height="56" fill="#d1e1d4"/>
+          <rect x="522" y="440" width="59" height="56" fill="#e4e8d2"/>
+          <rect x="580" y="440" width="59" height="56" fill="#e4e8d2"/>
+          <rect x="-58" y="495" width="59" height="56" fill="#111940"/>
+          <rect x="0" y="495" width="59" height="56" fill="#111940"/>
+          <rect x="58" y="495" width="59" height="56" fill="#142253"/>
+          <rect x="116" y="495" width="59" height="56" fill="#173271"/>
+          <rect x="174" y="495" width="59" height="56" fill="#1c4a97"/>
+          <rect x="232" y="495" width="59" height="56" fill="#2f71b6"/>
+          <rect x="290" y="495" width="59" height="56" fill="#539aca"/>
+          <rect x="348" y="495" width="59" height="56" fill="#82bcd2"/>
+          <rect x="406" y="495" width="59" height="56" fill="#b1d4d4"/>
+          <rect x="464" y="495" width="59" height="56" fill="#d1e1d4"/>
+          <rect x="522" y="495" width="59" height="56" fill="#e4e8d2"/>
+          <rect x="580" y="495" width="59" height="56" fill="#e4e8d2"/></g>
+        <!-- inner face of the 3D chevron tile -->
+        <path d="M399 -4 L349 122 Q343 140 362 148 L590 255 L590 -4 Z" fill="url(#faceG)" filter="url(#b1)"/>
+        <path d="M399 -4 L349 122 Q343 140 362 148 L590 255" stroke="#a8603c" stroke-opacity=".28" stroke-width="10" fill="none" filter="url(#b4)"/>
+        <!-- lit cushion inside the face -->
+        <path d="M438 142 Q440 120 462 112 L590 70 L590 255 L470 200 Z" fill="#fde6cf" opacity=".42" filter="url(#b4)"/>
+        <!-- glass band (bevel) -->
+        <path d="M341 -4 L301 102 Q295 118 302 135 L326 194 Q345 225 382 240 L590 325 L590 255 L362 148 Q343 140 349 122 L399 -4 Z" fill="url(#bandG)" filter="url(#b1)"/>
+        <path d="M352 -4 L318 86 Q308 112 314 132" stroke="#fff" stroke-opacity=".7" stroke-width="18" fill="none" filter="url(#b10)"/>
+        <!-- outer edge highlight line -->
+        <path d="M341 -4 L301 102 Q295 118 302 135 L326 194" stroke="#ffffff" stroke-width="2.6" fill="none" stroke-linecap="round" filter="url(#b05)"/>
+        <!-- inner tile -->
+        <path d="M440 88 L590 36 L590 84 L455 128 Z" fill="#e8743a" opacity=".5" filter="url(#b4)"/>
+        <path d="M443 -4 L421 72 Q417 88 433 86 L590 32 L590 -4 Z" fill="url(#tileG)" opacity=".88" filter="url(#b05)"/>
+        <path d="M443 -4 L421 72 Q417 88 433 86 L590 32" stroke="#fff1e6" stroke-width="2" fill="none" opacity=".95" filter="url(#b05)"/>
+        <!-- lit lower-right edge of the face -->
+        <path d="M548 238 Q566 247 590 258" stroke="#fff" stroke-width="2.4" fill="none" opacity=".85" filter="url(#b05)"/>
+      </g>
+    </svg>
+    <div class="ins-grain"></div>
+    <span class="ins-badge">
+      <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="#3b3b3b" stroke-width="1.4" stroke-linecap="round"><path d="M7 14.5h6M8 17.5h4"/><path d="M10 2.5a5.2 5.2 0 0 0-3.2 9.3c.6.5.9 1.1.9 1.8v.9h4.6v-.9c0-.7.3-1.3.9-1.8A5.2 5.2 0 0 0 10 2.5Z"/></svg>
+      Insights
+    </span>
+    <div class="ins-big">75%</div>
+    <h3 class="ins-head">Authorization rate increased<br>by 4% compared to last week.</h3>
+    <p class="ins-body">This improvement reduced failed transactions<br>by 950 and is projected to recover $12,400.</p>
+    <div class="ins-progress"><i class="on"></i><i></i><i></i></div>
+  </section>
+
+</main>
+
+<script>
+  // Build the dot-matrix charts (pure markup generation, no behaviour)
+  document.querySelectorAll('.dots').forEach(function (el) {
+    el.dataset.cols.split(',').forEach(function (c, i) {
+      var col = document.createElement('div');
+      col.className = 'dcol' + (i % 2 ? ' odd' : '');
+      var n = parseInt(c, 10), dark = c.indexOf('D') > -1;
+      for (var k = 0; k < n; k++) {
+        var d = document.createElement('span');
+        if (dark) d.className = 'd';
+        col.appendChild(d);
+      }
+      el.appendChild(col);
+    });
+  });
+</script>
+</body>
+</html>
