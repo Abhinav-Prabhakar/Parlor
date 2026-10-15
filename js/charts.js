@@ -228,7 +228,7 @@
     function update(m, animate) {
       var g = m.cur.gross, gc = m.cmp.gross, d = u.pctDelta(g, gc);
       u.countTo(amount, g, function (v) { return u.money(v); }, animate ? 900 : 1);
-      delta.classList.toggle('neg', d < 0);
+      delta.classList.toggle('neg', Math.round(d * 100) < 0);
       var dt = delta.querySelector('span');
       u.countTo(dt, Math.abs(d * 100), function (v) { return Math.round(v) + '%'; }, animate ? 900 : 1);
       var vals = rows.map(function (r) { return m.cur[KEYS[r.dataset.ch]]; });

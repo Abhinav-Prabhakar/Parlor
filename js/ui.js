@@ -427,7 +427,8 @@
       if (e.key === 'Enter' && items[kb]) { var o = items[kb]; closePalette(); o.run(); }
     });
     render();
-    requestAnimationFrame(function () { pal.classList.add('open'); input.focus(); });
+    input.focus();
+    requestAnimationFrame(function () { pal.classList.add('open'); });
   }
   function jump(id) {
     var c = cardOf(id);
