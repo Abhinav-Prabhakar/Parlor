@@ -399,7 +399,10 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
 .a-actions button:hover { background: #fff; transform: translateY(-1px); }
 
 /* ---------- Gross volume ---------- */
-.gross { display: flex; flex-direction: column; padding: 113px 31px 35px; }
+.gross { display: flex; flex-direction: column; }
+.gross > .gv-top, .gross > .gv-rule, .gross > .gv-rows { margin-left: 31px; margin-right: 31px; }
+.gv-top { margin-top: 113px; }
+.gv-rows { margin-bottom: 35px; }
 .gross .card-title { left: 31px; }
 .gv-top { display: flex; align-items: center; gap: 28px; min-height: 96px; }
 .gv-amount {
@@ -418,7 +421,7 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
 .delta.neg svg { transform: rotate(180deg); }
 .delta.neg svg path { fill: #e5484d; }
 .gv-rule { border: 0; height: 1px; background: #dcdcdc; margin-top: 22px; flex: none; }
-.gv-rows { flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding-top: 35px; min-height: 0; }
+.gv-rows { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 6px; padding-top: 35px; min-height: 0; }
 .gv-row { position: relative; }
 .gv-head { display: flex; justify-content: space-between; align-items: center; height: 24px; gap: 12px; }
 .gv-head span { font-size: 21.2px; color: #6c6c6c; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color .25s; }
@@ -744,7 +747,10 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
     grid-template-areas: "pay" "gross" "ins" "stack" "ret";
   }
   .payments { height: 470px; --ask-h: 112px; }
-  .gross { height: auto; padding: 76px 20px 24px; }
+  .gross { height: auto; }
+  .gross > .gv-top, .gross > .gv-rule, .gross > .gv-rows { margin-left: 20px; margin-right: 20px; }
+  .gv-top { margin-top: 76px; }
+  .gv-rows { margin-bottom: 24px; }
   .gv-rows { gap: 22px; }
   .insights { height: 440px; }
   .stack { grid-template-rows: auto auto; gap: var(--gap); }
@@ -826,7 +832,7 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
   .ins-progress { left: 20px; right: 20px; bottom: 24px; }
 }
 
-@container (max-width: 520px) {
+@container (max-width: 520px) and (min-height: 200px) {
   .dc-row { left: 32px !important; right: 32px; top: 86px; bottom: 22px; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "num vs" "dots dots"; align-items: start; align-content: space-between; }
   .big-num { font-size: 46px; line-height: 50px; }
   .vs { margin: 2px 0 0; }
@@ -852,3 +858,107 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
 .ask:not(.expanded) .ask-input { white-space: nowrap; overflow-x: auto; overflow-y: hidden; height: 54px; }
 @container (max-width: 560px) { .ask:not(.expanded) .ask-input { height: 48px; } }
 .ask:not(.expanded) .ask-input::-webkit-scrollbar { display: none; }
+
+/* =====================================================================
+   Height-aware layout
+   Cards become size containers (≥760px wide, where rows have definite
+   heights) so their internals scale with the card's *height* (cqh) as
+   well as its width. Reference heights from the design: payments/gross
+   542px, retention/insights 495px, transactions/customers 238px.
+   ===================================================================== */
+@media (min-width: 760px) {
+  .card { container-type: size; }
+
+  /* Payments — the glass panel's height is the sum of its parts */
+  .payments {
+    --ask-mt: clamp(8px, 3.5cqh, 19px);
+    --ask-in: clamp(40px, 10cqh, 54px);
+    --ask-mb: clamp(10px, 4.06cqh, 22px);
+    --ask-h: calc(var(--ask-mt) + 36px + var(--ask-in) + var(--ask-mb));
+  }
+  .ask-head { margin-top: var(--ask-mt); }
+  .ask-box { margin-bottom: var(--ask-mb); }
+  .ask-input { min-height: var(--ask-in); padding-top: calc((var(--ask-in) - 28px) / 2); padding-bottom: calc((var(--ask-in) - 28px) / 2); }
+  .ask:not(.expanded) .ask-input { height: var(--ask-in); }
+  .ask-send { top: calc((var(--ask-in) - 36px) / 2); }
+  @container (min-width: 561px) {
+    .payments .card-title { top: clamp(20px, 6.6cqh, 36px); font-size: clamp(22px, 5.2cqh, 28.3px); }
+    .payments .more { top: clamp(13px, 4.2cqh, 23px); width: clamp(42px, 10.1cqh, 55px); height: clamp(42px, 10.1cqh, 55px); }
+    .cols, .col-bg { top: clamp(60px, 16.8cqh, 91px); }
+    .col .val { top: clamp(33px, 7.2cqh, 39px); font-size: clamp(22px, 5.9cqh, 32px); line-height: 1.125; }
+    .y-axis span { font-size: clamp(12.5px, 2.77cqh, 15px); }
+    .ask.expanded { height: calc(100% - clamp(60px, 15.5cqh, 84px)); }
+  }
+
+  /* Gross volume */
+  @container (min-width: 421px) or (max-height: 379px) {
+    .gross .card-title { top: clamp(20px, 6.6cqh, 36px); font-size: clamp(22px, 5.2cqh, 28.3px); }
+    .gross .more { top: clamp(13px, 4.2cqh, 23px); width: clamp(42px, 10.1cqh, 55px); height: clamp(42px, 10.1cqh, 55px); }
+    .gv-top { min-height: 0; margin-top: clamp(54px, 20.8cqh, 113px); }
+    .gv-rows { margin-bottom: clamp(16px, 6.5cqh, 35px); gap: clamp(2px, 1.1cqh, 6px); }
+    .gv-amount { font-size: min(83px, 14.3cqi, 15.3cqh); line-height: 1.16; }
+    .delta { height: clamp(32px, 7.75cqh, 42px); font-size: clamp(14px, 3.15cqh, 17px); }
+    .gv-rule { margin-top: clamp(6px, 4.06cqh, 22px); }
+    .gv-rows { padding-top: clamp(6px, 6.5cqh, 35px); }
+    .gv-head span { font-size: clamp(15px, 3.9cqh, 21.2px); }
+    .gv-head b { font-size: clamp(16px, 4.06cqh, 22px); }
+    .track { margin-top: clamp(3px, 1.5cqh, 8px); height: clamp(16px, 4.06cqh, 22px); }
+    .fill { height: calc(clamp(16px, 4.06cqh, 22px) - 4px); }
+    .gv-head { height: clamp(20px, 4.4cqh, 24px); }
+  }
+
+  /* Retention */
+  .retention .card-title { top: clamp(18px, 6.9cqh, 34px); font-size: clamp(21px, 5.7cqh, 28.3px); }
+  .retention .more { top: clamp(12px, 4.4cqh, 22px); width: clamp(42px, 11.3cqh, 56px); height: clamp(42px, 11.3cqh, 56px); }
+  .months { bottom: clamp(12px, 5.9cqh, 29px); }
+
+  /* Transactions / Customers */
+  @container (min-width: 521px) or (max-height: 199px) {
+    .dotcard .card-title { top: clamp(14px, 14.3cqh, 34px); font-size: clamp(20px, 11.9cqh, 28.3px); }
+    .dotcard .more { top: clamp(10px, 9.2cqh, 22px); width: clamp(38px, 23.5cqh, 56px); height: clamp(38px, 23.5cqh, 56px); }
+    .dc-row { bottom: clamp(12px, 10.5cqh, 25px); }
+    .big-num { font-size: min(64px, 10cqi, 26.9cqh); line-height: 1; }
+    .vs span { font-size: clamp(13px, 7.6cqh, 18.2px); line-height: 1.3; }
+    .vs b { font-size: clamp(19px, 11.8cqh, 28px); line-height: 1.2; margin-top: clamp(1px, 3.8cqh, 9px); }
+  }
+
+  /* Insights */
+  @container (min-width: 421px) or (max-height: 379px) {
+    .ins-badge { top: clamp(16px, 6.5cqh, 32px); height: clamp(34px, 8.5cqh, 42px); }
+    .ins-text { bottom: clamp(48px, 16cqh, 79px); }
+    .ins-big { font-size: min(100px, 18cqi, 20.2cqh); }
+    .ins-head { font-size: clamp(18px, 5.05cqh, 25px); line-height: 1.24; margin-top: clamp(8px, 6.5cqh, 32px); }
+    .ins-body { font-size: clamp(13px, 3.33cqh, 16.5px); line-height: 1.58; margin-top: clamp(6px, 4cqh, 20px); }
+    .ins-progress { bottom: clamp(18px, 6.5cqh, 32px); }
+    .ins-nav { top: clamp(60px, 18cqh, 90px); }
+  }
+  @container (max-height: 300px) {
+    .ins-body { display: none; }
+  }
+}
+
+/* Desktop: the whole dashboard fits the window — no vertical scrolling.
+   Chrome (top bar, title, filters) scales with the window height; the
+   grid takes whatever is left, split 542:495 like the original design. */
+@media (min-width: 1240px) and (min-height: 700px) {
+  .page {
+    display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh;
+    padding-top: clamp(14px, 2.7vh, 35px); padding-bottom: clamp(14px, 2.7vh, 35px);
+  }
+  .topbar { height: clamp(48px, 4.6vh, 60px); flex: none; }
+  .circle-btn { width: clamp(44px, 4.6vh, 60px); height: clamp(44px, 4.6vh, 60px); }
+  .notif-dot { left: calc(50% + 3px); top: calc(50% - 12px); }
+  .avatar { width: clamp(46px, 4.7vh, 62px); height: clamp(46px, 4.7vh, 62px); }
+  .nav, .nav a, .nav-ind, .nav-hover { height: clamp(42px, 3.95vh, 52px); }
+  .nav a { line-height: clamp(40px, 3.8vh, 50px); }
+  .title-row { margin-top: clamp(8px, 1.9vh, 25px); min-height: 0; flex: none; }
+  .title-row h1 { font-size: clamp(42px, 4.8vh, 63px); line-height: 1.27; }
+  .link-btn { width: clamp(34px, 3.2vh, 42px); height: clamp(34px, 3.2vh, 42px); }
+  .controls { margin-top: clamp(4px, 1.3vh, 17px); }
+  .range-group, .range, .pill-btn { height: clamp(44px, 4.55vh, 60px); }
+  .grid {
+    flex: 1 1 0; min-height: 0; margin-top: clamp(10px, 2vh, 27px);
+    grid-template-rows: minmax(262px, 542fr) minmax(238px, 495fr);
+  }
+  .stack { gap: clamp(12px, 1.5vh, 20px); }
+}

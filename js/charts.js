@@ -42,11 +42,12 @@
     function measure() {
       var W = card.clientWidth, H = card.clientHeight;
       var cr = rel(colsEl, card), val = cols[0].querySelector('.val');
-      var askH = parseFloat(getComputedStyle(card).getPropertyValue('--ask-h')) || 131;
+      // the columns stop 10px under the glass panel's top edge (see .cols in styles.css)
+      var askH = (parseFloat(getComputedStyle(colsEl).bottom) || 121) + 10;
       var vr = rel(val, card);
       geo = {
         W: W, H: H, x0: cr.x, x1: cr.r, top: cr.y, colW: cr.w / 5,
-        yBot: H - askH - 17, yMax: vr.b + 22, askTop: H - askH
+        yBot: H - askH - 17, yMax: vr.b + (H < 380 ? 12 : 22), askTop: H - askH
       };
       geo.wedge = Math.min(27, geo.colW * 0.127);
       svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
@@ -94,7 +95,8 @@
       var keep = {};
       $$('span', axis).forEach(function (sp) { keep[sp.dataset.v] = sp; });
       var used = {};
-      for (var k = 0; k < 9; k++) {
+      var every = Math.max(1, Math.ceil(24 / Math.max(1, Y(sc.bot, sc) - Y(sc.bot + sc.step, sc))));
+      for (var k = 0; k < 9 * every; k += every) {
         var v = sc.bot + k * sc.step, y = Y(v, sc);
         if (y < geo.top + 50) break;
         var key = String(Math.round(v)), sp = keep[key];
@@ -145,7 +147,7 @@
       if (!geo) return;
       var i = selIdx, x = geo.x0 + i * geo.colW, top = Y((v || cur)[i], sc || curSc);
       var narrow = geo.W < 560;
-      moveTip(narrow ? x + geo.colW / 2 - tip.offsetWidth / 2 : x + Math.min(77, geo.colW * 0.36), top - (narrow ? 46 : 56));
+      moveTip(narrow ? x + geo.colW / 2 - tip.offsetWidth / 2 : x + Math.min(77, geo.colW * 0.36), Math.max(geo.yMax - 16, top - (narrow ? 46 : 56)));
     }
 
     function update(m, animate) {
@@ -269,7 +271,9 @@
 
     function measure() {
       var W = card.clientWidth, H = card.clientHeight, narrow = W < 400;
-      geo = { W: W, H: H, xL: narrow ? 20 : 31, xR: W - (narrow ? 20 : 31), base: H - (narrow ? 50 : 65), top: Math.max(118, H * 0.29) };
+      var t = $('.card-title', card), titleB = t.offsetTop + t.offsetHeight;
+      var mb = parseFloat(getComputedStyle(months).bottom) || 29;
+      geo = { W: W, H: H, xL: narrow ? 20 : 31, xR: W - (narrow ? 20 : 31), base: H - mb - 36, top: Math.max(titleB + 56, H * 0.29), pillMin: titleB + 10 };
       svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
       base.setAttribute('x1', geo.xL); base.setAttribute('x2', geo.xR); base.setAttribute('y1', geo.base + 0.5); base.setAttribute('y2', geo.base + 0.5);
       fade.setAttribute('x', geo.xL - 4); fade.setAttribute('width', geo.xR - geo.xL + 8);
@@ -304,7 +308,7 @@
       guide.setAttribute('x1', cx); guide.setAttribute('x2', cx); guide.setAttribute('y1', cy + 9); guide.setAttribute('y2', geo.base);
       guide.style.opacity = hoverIdx == null ? 0 : 1;
       var pw = pill.offsetWidth;
-      var px = Math.max(10, Math.min(geo.W - pw - 10, cx - pw / 2)), py = Math.max(76, cy - 55);
+      var px = Math.max(10, Math.min(geo.W - pw - 10, cx - pw / 2)), py = Math.max(geo.pillMin, cy - 55);
       pill.style.transition = anim ? '' : 'none';
       pill.style.transform = 'translate3d(' + px + 'px,' + py + 'px,0)';
       if (!anim) { void pill.offsetWidth; pill.style.transition = ''; dot.style.transition = ''; }
@@ -414,16 +418,30 @@
       var pw = pill.offsetWidth, cx = gr.left - cr.left + gr.width / 2;
       var x = Math.max(12, Math.min(cr.width - pw - 12, cx - pw / 2));
       var ds = parseFloat(getComputedStyle(wrap).getPropertyValue('--ds')) || 13;
-      var y = wr.bottom - cr.top - (4 * ds + 6) - (cr.width <= 520 ? 9 : 20) - 33;
+      var y = wr.bottom - cr.top - (4 * ds + 6) - (isCompact() ? 9 : 20) - 33;
+      // Short cards: no room above the dots, so the pill rides on the title row instead
+      var t = $('.card-title', card), tb = t.offsetTop + t.offsetHeight;
+      if (!isCompact() && y < tb + 4) {
+        y = t.offsetTop + (t.offsetHeight - pill.offsetHeight) / 2;
+        x = Math.max(x, t.offsetLeft + t.scrollWidth + 14);
+        x = Math.min(x, $('.more', card).offsetLeft - pw - 12);
+      }
       pill.style.transition = anim ? '' : 'none';
       pill.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
       if (!anim) { void pill.offsetWidth; pill.style.transition = ''; }
     }
+    // Stacked layout (number over dots) needs a narrow *and* tall enough card; mirrors styles.css
+    function isCompact() { return card.clientWidth <= 520 && card.clientHeight >= 200; }
     // Fit the dot size to the space left between the number and the "vs" block
     function fit() {
-      var n = groups.length || 7, row = wrap.parentNode, compact = card.clientWidth <= 520;
+      var n = groups.length || 7, row = wrap.parentNode, compact = isCompact();
       var avail = compact ? row.clientWidth : row.clientWidth - num.offsetWidth - $('.vs', card).offsetWidth - 40;
-      var ds = Math.max(7, Math.min(13, (avail - 8) / (n * 2.96)));
+      var ds = Math.min(13, (avail - 8) / (n * 2.96));
+      if (!compact) { // also fit the tallest column (4 dots) under the title
+        var t = $('.card-title', card), rowTop = row.offsetTop + row.offsetHeight - 7;
+        ds = Math.min(ds, (rowTop - (t.offsetTop + t.offsetHeight) - 14 - 6) / 4);
+      }
+      ds = Math.max(7, ds);
       wrap.style.setProperty('--ds', ds.toFixed(2) + 'px');
     }
     function update(m, animate) {
