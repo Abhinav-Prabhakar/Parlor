@@ -353,7 +353,10 @@
     stock: ['#fdf0dc', '#f6d6a6', '<path d="M10 3 16.5 6.5v7L10 17l-6.5-3.5v-7Z M3.5 6.5 10 10l6.5-3.5M10 10v7" stroke="#e1801f"/>']
   };
   function unread() { return notes.filter(function (n) { return !n.read; }).length; }
-  function syncDot() { $('.notif-dot').classList.toggle('off', unread() === 0); $('#bellBtn').setAttribute('aria-label', 'Notifications' + (unread() ? ' (' + unread() + ' unread)' : '')); }
+  function syncDot() {
+    var n = unread();
+    document.title = (n ? '(' + n + ') ' : '') + 'Overview · Parlor';
+    $('.notif-dot').classList.toggle('off', n === 0); $('#bellBtn').setAttribute('aria-label', 'Notifications' + (unread() ? ' (' + unread() + ' unread)' : '')); }
   function notifPanel(anchor) {
     var root = h('div', { class: 'notif' });
     function render() {
